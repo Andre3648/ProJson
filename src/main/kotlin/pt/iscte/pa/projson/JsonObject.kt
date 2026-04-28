@@ -26,7 +26,7 @@ class JsonObject(
         val body = properties.entries.joinToString(",\n") { (key,value) ->
             val outputValue = when(value){
                 is JsonObject -> value.prettyPrint(indent + 1)
-                //is JsonArray -> value.prettyPrint(indent + 1)
+                is JsonArray -> value.prettyPrint(indent + 1)
                 else -> value.toString()
             }
             "$childIndent\"$key\": $outputValue"
