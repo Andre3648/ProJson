@@ -1,5 +1,6 @@
 package pt.iscte.pa.projson
 
+//JsonPrimitive can be String, number, boolean or null
 class JsonPrimitive(val value: Any?) : JsonValue(){
     init{
         require(value == null || value is String || value is Number || value is Boolean){
@@ -7,6 +8,8 @@ class JsonPrimitive(val value: Any?) : JsonValue(){
         }
     }
 
+    //Numbers, Boolean and null converts to string
+    //Strings are wrapped in double quotes with special characters
     override fun toString(): String = when (value){
         null -> "null"
         is String -> "\"${value

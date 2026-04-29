@@ -3,8 +3,11 @@ package pt.iscte.pa.projson
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.primaryConstructor
 
+//Main entry point of the ProJson library, following the facade pattern
 class ProJson{
 
+    //Converts any value supported into its corresponding JsonValue
+    //The conversion is recursive for nested objects, collections and maps
     fun toJson(obj: Any?): JsonValue = when (obj) {
         null             -> JsonPrimitive(null)
         is String        -> JsonPrimitive(obj)
@@ -16,6 +19,8 @@ class ProJson{
         else             -> convertObject(obj)
     }
 
+    //Converts a Map to a JsonObject without a $type property
+    //key value are converted to Strings and values are recursively converted
     private fun convertMap(map: Map<*, *>): JsonObject {
         val obj = JsonObject()
         map.forEach { (key, value) ->
@@ -24,6 +29,7 @@ class ProJson{
         return obj
     }
 
+    //Converts a collection to a JsonArray by recursively converting each element
     private fun convertCollection(collection: Collection<*>): JsonArray {
         val array = JsonArray()
         collection.forEach { element ->
@@ -32,6 +38,8 @@ class ProJson{
         return array
     }
 
+    //Converts any object to a JsonObject using reflection
+    //Adds a $type property with the simple class name
     private fun convertObject(obj: Any): JsonObject {
         val json = JsonObject()
         val c = obj::class
