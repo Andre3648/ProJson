@@ -72,8 +72,7 @@ class JsonObjectTests {
         val json = JsonObject()
         json.setProperty("day", 28)
         json.setProperty("day", 5)
-        val result = json.getProperty("day")
-        assertIs<JsonPrimitive>(result)
+        val result = json.getProperty("day") as JsonPrimitive
         assertEquals(5, result.value)
     }
 
@@ -119,7 +118,7 @@ class JsonObjectTests {
     fun testSetPropertyInvalidType() {
         val json = JsonObject()
         assertFailsWith<IllegalArgumentException> {
-            json.setProperty("key", listOf(1, 2, 3))
+            json.setProperty("key", listOf("Andre", null, 3, 28))
         }
     }
 

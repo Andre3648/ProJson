@@ -86,6 +86,7 @@ class JsonArrayTests {
         assertEquals("""["Andre", null, 28]""", json.toString())
     }
 
+    //Analisar este teste devido ao inner array gerado
     @Test
     fun testArrayNested() {
         val json = JsonArray()

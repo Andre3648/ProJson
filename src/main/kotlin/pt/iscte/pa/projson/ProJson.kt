@@ -55,9 +55,16 @@ class ProJson{
     }
 }
 
-//fun main() {
-//    data class Date(val day: Int, val month: Int, val year: Int)
-//    val result = ProJson().toJson(Date(31, 4, 2026)) as JsonObject
-//    result.setProperty("year", 2027)
-//    println(result)
-//}
+fun main() {
+    data class Date(val day: Int, val month: Int, val year: Int)
+    val result = ProJson().toJson(Date(31, 4, 2026)) as JsonObject
+    result.setProperty("year", 2027)
+    println(result)
+    val list = listOf("Andre", null, 28)
+    val json = ProJson().toJson(list) as JsonArray
+    json.add("c")
+    println(json)
+    json.add(result)
+    println(json)
+}
+
